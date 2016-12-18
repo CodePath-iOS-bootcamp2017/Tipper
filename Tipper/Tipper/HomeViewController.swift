@@ -26,10 +26,26 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var totalDollarSignLabel: UILabel!
     
+    @IBOutlet weak var splitNumberTextField: UITextField!
+    
+    @IBOutlet weak var shareAmountLabel: UILabel!
+    
+
+    @IBOutlet weak var splitView: UIView!
+
+    
+    @IBOutlet weak var shareDollarLabel: UILabel!
+    
+    @IBOutlet weak var shareCaptionLabel: UILabel!
+    
+    var payAmount = 0.00
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideLabels()
+        self.shareAmountLabel.isHidden = true
+        self.shareDollarLabel.isHidden = true
+        self.shareCaptionLabel.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,6 +65,8 @@ class HomeViewController: UIViewController {
                 self.totalAmountLabel.text = String(format: "%.2f", totalAmount)
                 self.tipLabel.text = String(format: "%.2f", tipAmount)
                 
+                self.payAmount = totalAmount
+                self.onSplitUpdate(sender)
                 /*
                 var numberFormatter = NumberFormatter()
                 numberFormatter.formatterBehavior = NumberFormatter.Behavior.behavior10_4
@@ -74,6 +92,7 @@ class HomeViewController: UIViewController {
     @IBAction func onTapBackground(_ sender: Any) {
         
         self.billAmountTextField.resignFirstResponder()
+        self.splitNumberTextField.resignFirstResponder()
     }
     
     func hideLabels(){
@@ -83,6 +102,7 @@ class HomeViewController: UIViewController {
         self.totalAmountLabel.isHidden = true
         self.tipDollarSignLabel.isHidden = true
         self.totalDollarSignLabel.isHidden = true
+        self.splitView.isHidden = true
     }
     
     func showLabels(){
@@ -92,8 +112,24 @@ class HomeViewController: UIViewController {
         self.totalAmountLabel.isHidden = false
         self.tipDollarSignLabel.isHidden = false
         self.totalDollarSignLabel.isHidden = false
+        self.splitView.isHidden = false
     }
     
+    
+    @IBAction func onSplitUpdate(_ sender: Any) {
+        if let splitNumberText = self.splitNumberTextField.text{
+            if let splitNumber = Int(splitNumberText){
+                self.shareAmountLabel.isHidden = false
+                self.shareDollarLabel.isHidden = false
+                self.shareCaptionLabel.isHidden = false
+                self.shareAmountLabel.text = String(format: "%.2f", (self.payAmount/Double(splitNumber)))
+            }else{
+                self.shareAmountLabel.isHidden = true
+                self.shareDollarLabel.isHidden = true
+                self.shareCaptionLabel.isHidden = true
+            }
+        }
+    }
     
     /*
     // MARK: - Navigation
