@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24038C211E06DE1D00449A19 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24038C201E06DE1D00449A19 /* SettingsViewController.swift */; };
 		241AE6A91E05F3CE00807894 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241AE6A81E05F3CE00807894 /* AppDelegate.swift */; };
 		241AE6AE1E05F3CE00807894 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 241AE6AC1E05F3CE00807894 /* Main.storyboard */; };
 		241AE6B01E05F3CE00807894 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241AE6AF1E05F3CE00807894 /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24038C201E06DE1D00449A19 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		241AE6A51E05F3CE00807894 /* Tipper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tipper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		241AE6A81E05F3CE00807894 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		241AE6AD1E05F3CE00807894 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				241AE6BB1E05F46800807894 /* HomeViewController.swift */,
+				24038C201E06DE1D00449A19 /* SettingsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 			files = (
 				241AE6A91E05F3CE00807894 /* AppDelegate.swift in Sources */,
 				241AE6BC1E05F46800807894 /* HomeViewController.swift in Sources */,
+				24038C211E06DE1D00449A19 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +309,7 @@
 				241AE6B91E05F3CE00807894 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -33,12 +33,15 @@ class HomeViewController: UIViewController {
 
     @IBOutlet weak var splitView: UIView!
 
+    @IBOutlet weak var billDollarLabel: UILabel!
     
     @IBOutlet weak var shareDollarLabel: UILabel!
     
     @IBOutlet weak var shareCaptionLabel: UILabel!
     
     var payAmount = 0.00
+    static var percentages = [10, 20, 30]
+    static var currencySymbol = "$"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,20 +50,38 @@ class HomeViewController: UIViewController {
         self.shareDollarLabel.isHidden = true
         self.shareCaptionLabel.isHidden = true
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        updatePercentSegmentedControl()
+        updateCurrencySymbolLabels()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func updatePercentSegmentedControl(){
+        self.percentageSegmentedControl.setTitle("\(HomeViewController.percentages[0])%", forSegmentAt: 0)
+        self.percentageSegmentedControl.setTitle("\(HomeViewController.percentages[1])%", forSegmentAt: 1)
+        self.percentageSegmentedControl.setTitle("\(HomeViewController.percentages[2])%", forSegmentAt: 2)
+    }
 
+    func updateCurrencySymbolLabels(){
+        self.tipDollarSignLabel.text = HomeViewController.currencySymbol
+        self.totalDollarSignLabel.text = HomeViewController.currencySymbol
+        self.shareDollarLabel.text = HomeViewController.currencySymbol
+        self.billDollarLabel.text = HomeViewController.currencySymbol
+    }
+    
     @IBAction func calculateTip(_ sender: Any) {
 //        print("onAmountChanged called")
-        let percentages = [0.1, 0.2, 0.3]
+        
         if let bill = self.billAmountTextField.text{
             if let billAmount = Double(bill){
                 self.showLabels()
                 
-                let tipAmount = billAmount * percentages[percentageSegmentedControl.selectedSegmentIndex]
+                let tipAmount = billAmount * Double(HomeViewController.percentages[percentageSegmentedControl.selectedSegmentIndex])/100
                 let totalAmount = billAmount + tipAmount
                 self.totalAmountLabel.text = String(format: "%.2f", totalAmount)
                 self.tipLabel.text = String(format: "%.2f", tipAmount)
