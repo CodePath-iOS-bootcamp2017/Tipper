@@ -20,9 +20,11 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     static var countryRowNumber = 60
     
+    let defaults = UserDefaults.standard
+    
     let countryPickerViewDatasource = ["Afghanistan", "Argentina", "Australia", "Bermuda", "Bolivia", "Bulgaria",                               "Brazil", "Canada", "Chile", "China", "Colombia", "Costa Rica", "Cuba", "Czech Republic", "Denmark", "Egypt", "Georgia", "Ghana", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Israel", "Jamaica", "Japan", "Jersey", "Kazakhstan", "Korea", "Lebanon", "Malaysia", "Mauritius", "Mexico", "Mongolia", "Nepal", "Netherlands", "New Zealand", "Nigeria", "Norway", "Panama", "Paraguay", "Peru", "Philippines", "Poland", "Qatar", "Romania", "Russia", "Saudi Arabia", "Serbia", "Singapore", "South Africa", "Sri Lanka", "Sweden", "Switzerland", "Syria", "Taiwan", "Thailand", "Turkey", "Ukraine", "United States", "United Kingdom", "Viet Nam", "Yemen", "Zimbabwe"]
     
-    let currencySymbols = ["؋", "$", "$", "$", "$b", "лв", "R$", "$", "$", "¥", "$", "₡", "₱", "Kč", "kr", "£", "₾", "¢", "$", "Ft", "kr", "₹", "Rp", "﷼", "₪", "J$", "¥", "£", "лв", "₩", "£", "RM", "₨", "$", "₮", "₨", "ƒ", "$", "₦", "kr", "B/.", "Gs", "S/.", "₱", "zł", "﷼", "lei", "₽", "﷼", "Дин.", "$", "S", "₨", "kr", "CHF", "£", "NT$", "฿", "₺", "₴", "$", "£", "₫", "﷼", "Z$"]
+    static let currencySymbols = ["؋", "$", "$", "$", "$b", "лв", "R$", "$", "$", "¥", "$", "₡", "₱", "Kč", "kr", "£", "₾", "¢", "$", "Ft", "kr", "₹", "Rp", "﷼", "₪", "J$", "¥", "£", "лв", "₩", "£", "RM", "₨", "$", "₮", "₨", "ƒ", "$", "₦", "kr", "B/.", "Gs", "S/.", "₱", "zł", "﷼", "lei", "₽", "﷼", "Дин.", "$", "S", "₨", "kr", "CHF", "£", "NT$", "฿", "₺", "₴", "$", "£", "₫", "﷼", "Z$"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,9 +55,10 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("Country: \(self.countryPickerViewDatasource[row]), Currency: \(self.currencySymbols[row])")
+        print("Country: \(self.countryPickerViewDatasource[row]), Currency: \(SettingsViewController.currencySymbols[row])")
         SettingsViewController.countryRowNumber = row
-        HomeViewController.currencySymbol = self.currencySymbols[row]
+        HomeViewController.currencySymbol = SettingsViewController.currencySymbols[row]
+        defaults.set(row, forKey: "countryRow")
     }
     
     func updatePercentTextFields(){
@@ -68,6 +71,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         if let percentText = self.percent1TextField.text{
             if let percent = Int(percentText){
                 HomeViewController.percentages[0] = percent
+                defaults.set(percent, forKey: "tipPercent1")
             }
         }
     }
@@ -76,6 +80,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         if let percentText = self.percent2TextField.text{
             if let percent = Int(percentText){
                 HomeViewController.percentages[1] = percent
+                defaults.set(percent, forKey: "tipPercent2")
             }
         }
     }
@@ -84,6 +89,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         if let percentText = self.percent3TextField.text{
             if let percent = Int(percentText){
                 HomeViewController.percentages[2] = percent
+                defaults.set(percent, forKey: "tipPercent3")
             }
         }
     }

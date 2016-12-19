@@ -29,7 +29,6 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var splitNumberTextField: UITextField!
     
     @IBOutlet weak var shareAmountLabel: UILabel!
-    
 
     @IBOutlet weak var splitView: UIView!
 
@@ -43,17 +42,45 @@ class HomeViewController: UIViewController {
     static var percentages = [10, 20, 30]
     static var currencySymbol = "$"
     
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideLabels()
         self.shareAmountLabel.isHidden = true
         self.shareDollarLabel.isHidden = true
         self.shareCaptionLabel.isHidden = true
+        
+        setUserDefaults()
+    }
+    
+    func setUserDefaults(){
+        if (defaults.object(forKey: "lastBill") != nil) {
+            self.billAmountTextField.text = String(defaults.double(forKey: "lastBill"))
+        }
+        
+        if (defaults.object(forKey: "countryRow") != nil) {
+            SettingsViewController.countryRowNumber = defaults.integer(forKey: "countryRow")
+            HomeViewController.currencySymbol = SettingsViewController.currencySymbols[defaults.integer(forKey: "countryRow")]
+        }
+        
+        if (defaults.object(forKey: "tipPercent1") != nil) {
+            HomeViewController.percentages[0] = defaults.integer(forKey: "tipPercent1")
+        }
+        
+        if (defaults.object(forKey: "tipPercent2") != nil) {
+            HomeViewController.percentages[1] = defaults.integer(forKey: "tipPercent2")
+        }
+        
+        if (defaults.object(forKey: "tipPercent3") != nil) {
+            HomeViewController.percentages[2] = defaults.integer(forKey: "tipPercent3")
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         updatePercentSegmentedControl()
         updateCurrencySymbolLabels()
+        self.billAmountTextField.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,6 +106,7 @@ class HomeViewController: UIViewController {
         
         if let bill = self.billAmountTextField.text{
             if let billAmount = Double(bill){
+                defaults.set(billAmount, forKey: "lastBill")
                 self.showLabels()
                 
                 let tipAmount = billAmount * Double(HomeViewController.percentages[percentageSegmentedControl.selectedSegmentIndex])/100
