@@ -277,6 +277,10 @@
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="0Xc-Y9-Dlp" appends="YES" id="Cf2-m5-5tR"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="countryPickerView" destination="JkI-vA-xsf" id="vVy-4F-hOO"/>
@@ -286,6 +290,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPo-8y-Kxa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="0Xc-Y9-Dlp">
+                    <connections>
+                        <action selector="onTapBackground:" destination="W9E-vS-T78" id="1UG-4R-omO"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1972" y="138.98050974512745"/>
         </scene>

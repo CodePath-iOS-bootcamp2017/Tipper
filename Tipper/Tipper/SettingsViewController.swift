@@ -93,6 +93,13 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             }
         }
     }
+    
+    
+    @IBAction func onTapBackground(_ sender: Any) {
+        self.percent1TextField.resignFirstResponder()
+        self.percent2TextField.resignFirstResponder()
+        self.percent3TextField.resignFirstResponder()
+    }
     /*
     // MARK: - Navigation
 

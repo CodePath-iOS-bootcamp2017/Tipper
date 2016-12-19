@@ -56,7 +56,16 @@ class HomeViewController: UIViewController {
     
     func setUserDefaults(){
         if (defaults.object(forKey: "lastBill") != nil) {
-            self.billAmountTextField.text = String(defaults.double(forKey: "lastBill"))
+            if (defaults.object(forKey: "lastBillTimestamp") != nil){
+                if let last = defaults.object(forKey: "lastBillTimestamp") as? NSDate{
+                    let interval = last.timeIntervalSinceNow
+                    if(interval < 600.0){
+                        self.billAmountTextField.text = String(defaults.double(forKey: "lastBill"))
+                    }
+                }
+            }else{
+                self.billAmountTextField.text = String(defaults.double(forKey: "lastBill"))
+            }
         }
         
         if (defaults.object(forKey: "countryRow") != nil) {
@@ -107,12 +116,25 @@ class HomeViewController: UIViewController {
         if let bill = self.billAmountTextField.text{
             if let billAmount = Double(bill){
                 defaults.set(billAmount, forKey: "lastBill")
+                defaults.setValue(NSDate(), forKey: "lastBillTimestamp")
+                
                 self.showLabels()
                 
                 let tipAmount = billAmount * Double(HomeViewController.percentages[percentageSegmentedControl.selectedSegmentIndex])/100
                 let totalAmount = billAmount + tipAmount
-                self.totalAmountLabel.text = String(format: "%.2f", totalAmount)
-                self.tipLabel.text = String(format: "%.2f", tipAmount)
+                
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .decimal
+                
+                let x = NSNumber(value:totalAmount)
+                if let formattedTotal = numberFormatter.string(from: x){
+                    self.totalAmountLabel.text = formattedTotal
+                }
+                
+                let y = NSNumber(value:tipAmount)
+                if let formattedTip = numberFormatter.string(from: y){
+                    self.tipLabel.text = formattedTip
+                }
                 
                 self.payAmount = totalAmount
                 self.onSplitUpdate(sender)
